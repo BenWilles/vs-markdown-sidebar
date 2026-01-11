@@ -1,0 +1,105 @@
+{
+  "name": "markdown-sidebar",
+  "displayName": "Markdown Sidebar",
+  "description": "Edit Markdown files in the sidebar with live preview, syntax highlighting, and Mermaid diagram support",
+  "version": "1.0.0",
+  "author": "Ben Willes",
+  "publisher": "benwilles",
+  "license": "MIT",
+  "icon": "icon.png",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/benwilles/markdown-sidebar.git"
+  },
+  "bugs": {
+    "url": "https://github.com/benwilles/markdown-sidebar/issues"
+  },
+  "homepage": "https://github.com/benwilles/markdown-sidebar#readme",
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "keywords": [
+    "markdown",
+    "sidebar",
+    "preview",
+    "editor",
+    "mermaid"
+  ],
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "markdown-sidebar",
+          "title": "Markdown Editor",
+          "icon": "$(markdown)"
+        }
+      ]
+    },
+    "views": {
+      "markdown-sidebar": [
+        {
+          "type": "webview",
+          "id": "markdownEditor",
+          "name": "Markdown Editor"
+        }
+      ]
+    },
+    "commands": [
+      {
+        "command": "markdownSidebar.open",
+        "title": "Open Markdown File",
+        "icon": "$(folder-opened)"
+      },
+      {
+        "command": "markdownSidebar.recentFiles",
+        "title": "Recent Files",
+        "icon": "$(history)"
+      },
+      {
+        "command": "markdownSidebar.togglePreview",
+        "title": "Toggle Preview",
+        "icon": "$(open-preview)"
+      }
+    ],
+    "menus": {
+      "view/title": [
+        {
+          "command": "markdownSidebar.open",
+          "when": "view == markdownEditor",
+          "group": "navigation@1"
+        },
+        {
+          "command": "markdownSidebar.recentFiles",
+          "when": "view == markdownEditor",
+          "group": "navigation@2"
+        },
+        {
+          "command": "markdownSidebar.togglePreview",
+          "when": "view == markdownEditor",
+          "group": "navigation@3"
+        }
+      ]
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "lint": "eslint src --ext ts"
+  },
+  "devDependencies": {
+    "@types/node": "^20.10.0",
+    "@types/vscode": "^1.85.0",
+    "@typescript-eslint/eslint-plugin": "^6.13.0",
+    "@typescript-eslint/parser": "^6.13.0",
+    "eslint": "^8.54.0",
+    "typescript": "^5.3.0"
+  }
+}
