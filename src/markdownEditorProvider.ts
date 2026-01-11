@@ -134,21 +134,36 @@ export class MarkdownEditorProvider implements vscode.WebviewViewProvider {
     private async _openFileByPath(filePath: string) {
         try {
             const uri = vscode.Uri.file(filePath);
-            const content = await vscode.workspace.fs.readFile(uri);
-            this._currentFileUri = uri;
-            this._currentContent = Buffer.from(content).toString('utf8');
-
-            this._saveLastFile(uri);
-
-            if (this._view) {
-                this._view.webview.postMessage({
-                    type: 'loadContent',
-                    content: this._currentContent,
-                    filename: this._getFilename(uri)
-                });
-            }
+            await this._openFileFromUri(uri);
         } catch (error) {
             vscode.window.showErrorMessage(`Failed to open file: ${filePath}`);
+        }
+    }
+
+    private async _openFileFromUri(uri: vscode.Uri) {
+        const content = await vscode.workspace.fs.readFile(uri);
+        this._currentFileUri = uri;
+        this._currentContent = Buffer.from(content).toString('utf8');
+
+        this._saveLastFile(uri);
+
+        // Reveal the sidebar view
+        await vscode.commands.executeCommand('markdownEditor.focus');
+
+        if (this._view) {
+            this._view.webview.postMessage({
+                type: 'loadContent',
+                content: this._currentContent,
+                filename: this._getFilename(uri)
+            });
+        }
+    }
+
+    public async openFileFromUri(uri: vscode.Uri) {
+        try {
+            await this._openFileFromUri(uri);
+        } catch (error) {
+            vscode.window.showErrorMessage(`Failed to open file: ${uri.fsPath}`);
         }
     }
 

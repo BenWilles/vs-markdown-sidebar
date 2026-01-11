@@ -2,7 +2,7 @@
   "name": "vs-markdown-sidebar",
   "displayName": "VS Markdown Sidebar",
   "description": "Edit Markdown files in the sidebar with live preview, syntax highlighting, and Mermaid diagram support",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "author": "Ben Willes",
   "publisher": "benwilles",
   "license": "MIT",
@@ -66,6 +66,10 @@
         "command": "markdownSidebar.togglePreview",
         "title": "Toggle Preview",
         "icon": "$(open-preview)"
+      },
+      {
+        "command": "markdownSidebar.openFromExplorer",
+        "title": "Open in Markdown Sidebar"
       }
     ],
     "menus": {
@@ -84,6 +88,13 @@
           "command": "markdownSidebar.togglePreview",
           "when": "view == markdownEditor",
           "group": "navigation@3"
+        }
+      ],
+      "explorer/context": [
+        {
+          "command": "markdownSidebar.openFromExplorer",
+          "when": "resourceExtname == .md",
+          "group": "navigation"
         }
       ]
     }

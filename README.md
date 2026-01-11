@@ -21,6 +21,7 @@ A VS Code extension that provides a dedicated sidebar for editing and previewing
    - **Folder icon**: Open a Markdown file
    - **History icon**: Show recent files
    - **Preview icon**: Toggle between edit and preview mode
+3. Or right-click any `.md` file in the Explorer and select **"Open in Markdown Sidebar"**
 
 ## Preview Support
 
@@ -69,6 +70,9 @@ Install the generated `.vsix` file via VS Code's "Install from VSIX" option.
 - VS Code 1.85.0 or higher
 
 ## Changelog
+
+### v1.0.2
+- Added: Right-click context menu "Open in Markdown Sidebar" for `.md` files in Explorer
 
 ### v1.0.1
 - Fixed: Content now persists when switching sidebar tabs

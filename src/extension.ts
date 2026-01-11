@@ -28,6 +28,12 @@ export function activate(context: vscode.ExtensionContext) {
             provider.togglePreview();
         })
     );
+
+    context.subscriptions.push(
+        vscode.commands.registerCommand('markdownSidebar.openFromExplorer', (uri: vscode.Uri) => {
+            provider.openFileFromUri(uri);
+        })
+    );
 }
 
 export function deactivate() {}
