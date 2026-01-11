@@ -1,6 +1,6 @@
 {
-  "name": "markdown-sidebar",
-  "displayName": "Markdown Sidebar",
+  "name": "vs-markdown-sidebar",
+  "displayName": "VS Markdown Sidebar",
   "description": "Edit Markdown files in the sidebar with live preview, syntax highlighting, and Mermaid diagram support",
   "version": "1.0.0",
   "author": "Ben Willes",
@@ -9,12 +9,12 @@
   "icon": "icon.png",
   "repository": {
     "type": "git",
-    "url": "https://github.com/benwilles/markdown-sidebar.git"
+    "url": "https://github.com/benwilles/vs-markdown-sidebar.git"
   },
   "bugs": {
-    "url": "https://github.com/benwilles/markdown-sidebar/issues"
+    "url": "https://github.com/benwilles/vs-markdown-sidebar/issues"
   },
-  "homepage": "https://github.com/benwilles/markdown-sidebar#readme",
+  "homepage": "https://github.com/benwilles/vs-markdown-sidebar#readme",
   "engines": {
     "vscode": "^1.85.0"
   },

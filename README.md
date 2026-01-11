@@ -1,8 +1,8 @@
-# Markdown Sidebar
+# VS Markdown Sidebar
 
 A VS Code extension that provides a dedicated sidebar for editing and previewing Markdown files.
 
-![Markdown Sidebar](icon.png)
+![VS Markdown Sidebar](icon.png)
 
 ## Features
 
@@ -42,13 +42,13 @@ The preview mode renders all common Markdown elements:
 
 ### From VS Code Marketplace
 
-Search for "Markdown Sidebar" in the VS Code Extensions view.
+Search for "VS Markdown Sidebar" in the VS Code Extensions view.
 
 ### From Source
 
 ```bash
-git clone https://github.com/benwilles/markdown-sidebar.git
-cd markdown-sidebar
+git clone https://github.com/benwilles/vs-markdown-sidebar.git
+cd vs-markdown-sidebar
 npm install
 npm run compile
 ```
