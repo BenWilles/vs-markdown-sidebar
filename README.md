@@ -11,8 +11,8 @@ A VS Code extension that provides a dedicated sidebar for editing and previewing
 - **Syntax Highlighting**: Code blocks with syntax highlighting
 - **Mermaid Diagrams**: Full support for Mermaid diagrams (flowcharts, sequence diagrams, etc.)
 - **Auto-Save**: Changes are automatically saved after 1 second of inactivity
-- **Persistent State**: The last opened file is automatically restored when VS Code restarts
-- **Recent Files**: Quick access to the last 10 opened Markdown files
+- **Persistent State**: The last opened file is automatically restored when VS Code restarts (per workspace)
+- **Recent Files**: Quick access to the last 10 opened Markdown files (per workspace)
 
 ## Usage
 
@@ -67,6 +67,15 @@ Install the generated `.vsix` file via VS Code's "Install from VSIX" option.
 ## Requirements
 
 - VS Code 1.85.0 or higher
+
+## Changelog
+
+### v1.0.1
+- Fixed: Content now persists when switching sidebar tabs
+- Changed: Recent files and last opened file are now stored per workspace instead of globally
+
+### v1.0.0
+- Initial release
 
 ## Author
 

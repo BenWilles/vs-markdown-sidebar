@@ -36,15 +36,37 @@ export class MarkdownEditorProvider implements vscode.WebviewViewProvider {
                     this._currentContent = data.content;
                     this._scheduleAutoSave();
                     break;
+                case 'ready':
+                    // Webview is ready, restore content if we have any
+                    this._restoreContent();
+                    break;
             }
         });
 
-        // Load last opened file
-        this._loadLastFile();
+        // When view becomes visible again, restore content
+        webviewView.onDidChangeVisibility(() => {
+            if (webviewView.visible && this._currentFileUri) {
+                this._restoreContent();
+            }
+        });
+    }
+
+    private _restoreContent() {
+        // If we have a current file loaded, restore it
+        if (this._currentFileUri && this._currentContent) {
+            this._view?.webview.postMessage({
+                type: 'loadContent',
+                content: this._currentContent,
+                filename: this._getFilename(this._currentFileUri)
+            });
+        } else {
+            // Otherwise try to load the last file from workspace state
+            this._loadLastFile();
+        }
     }
 
     private async _loadLastFile() {
-        const lastFilePath = this._context.globalState.get<string>(MarkdownEditorProvider.LAST_FILE_KEY);
+        const lastFilePath = this._context.workspaceState.get<string>(MarkdownEditorProvider.LAST_FILE_KEY);
         if (lastFilePath) {
             try {
                 const uri = vscode.Uri.file(lastFilePath);
@@ -61,18 +83,18 @@ export class MarkdownEditorProvider implements vscode.WebviewViewProvider {
                 }
             } catch (error) {
                 // File no longer exists, clear the stored path
-                this._context.globalState.update(MarkdownEditorProvider.LAST_FILE_KEY, undefined);
+                this._context.workspaceState.update(MarkdownEditorProvider.LAST_FILE_KEY, undefined);
             }
         }
     }
 
     private _saveLastFile(uri: vscode.Uri) {
-        this._context.globalState.update(MarkdownEditorProvider.LAST_FILE_KEY, uri.fsPath);
+        this._context.workspaceState.update(MarkdownEditorProvider.LAST_FILE_KEY, uri.fsPath);
         this._addToRecentFiles(uri.fsPath);
     }
 
     private _addToRecentFiles(filePath: string) {
-        const recentFiles = this._context.globalState.get<string[]>(MarkdownEditorProvider.RECENT_FILES_KEY, []);
+        const recentFiles = this._context.workspaceState.get<string[]>(MarkdownEditorProvider.RECENT_FILES_KEY, []);
 
         // Remove if already exists (to move to top)
         const filtered = recentFiles.filter(f => f !== filePath);
@@ -83,11 +105,11 @@ export class MarkdownEditorProvider implements vscode.WebviewViewProvider {
         // Keep only last N files
         const trimmed = filtered.slice(0, MarkdownEditorProvider.MAX_RECENT_FILES);
 
-        this._context.globalState.update(MarkdownEditorProvider.RECENT_FILES_KEY, trimmed);
+        this._context.workspaceState.update(MarkdownEditorProvider.RECENT_FILES_KEY, trimmed);
     }
 
     public async showRecentFiles() {
-        const recentFiles = this._context.globalState.get<string[]>(MarkdownEditorProvider.RECENT_FILES_KEY, []);
+        const recentFiles = this._context.workspaceState.get<string[]>(MarkdownEditorProvider.RECENT_FILES_KEY, []);
 
         if (recentFiles.length === 0) {
             vscode.window.showInformationMessage('No recent files');
@@ -589,6 +611,9 @@ export class MarkdownEditorProvider implements vscode.WebviewViewProvider {
                     break;
             }
         });
+
+        // Notify extension that webview is ready
+        vscode.postMessage({ type: 'ready' });
     </script>
 </body>
 </html>`;

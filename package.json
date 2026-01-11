@@ -2,7 +2,7 @@
   "name": "vs-markdown-sidebar",
   "displayName": "VS Markdown Sidebar",
   "description": "Edit Markdown files in the sidebar with live preview, syntax highlighting, and Mermaid diagram support",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "author": "Ben Willes",
   "publisher": "benwilles",
   "license": "MIT",
